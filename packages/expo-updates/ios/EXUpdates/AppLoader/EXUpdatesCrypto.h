@@ -2,6 +2,9 @@
 
 #import <EXUpdates/EXUpdatesConfig.h>
 
+@class EXUpdatesSignatureHeaderInfo;
+@class EXUpdatesCodeSigningConfiguration;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^EXUpdatesVerifySignatureSuccessBlock)(BOOL isValid);
