@@ -98,7 +98,7 @@ static NSString * const EXUpdatesDatabaseStaticBuildDataKey = @"staticBuildData"
                           asset.filename,
                           asset.contentHash,
                           @(EXUpdatesDatabaseHashTypeSha1),
-                          asset.expectedHash,
+                          asset.expectedHash ?: [NSNull null],
                           ]
                     error:error] == nil) {
       sqlite3_exec(_db, "ROLLBACK;", NULL, NULL, NULL);
