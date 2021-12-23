@@ -7,7 +7,15 @@
 #import <ExpoModulesCore/EXViewManagerAdapterClassesRegistry.h>
 #import <ExpoModulesCore/EXModuleRegistryHolderReactModule.h>
 #import <ExpoModulesCore/EXReactNativeEventEmitter.h>
-#import <ExpoModulesCore/Swift.h>
+//#import <ExpoModulesCore/Swift.h>
+
+// When `use_frameworks!` is used, the generated Swift header is inside ExpoModulesCore module.
+// Otherwise, it's available only locally with double-quoted imports.
+#if __has_include(<ExpoModulesCore/ExpoModulesCore-Swift.h>)
+#import <ExpoModulesCore/ExpoModulesCore-Swift.h>
+#else
+#import "ExpoModulesCore-Swift.h"
+#endif
 
 @interface EXModuleRegistryAdapter ()
 
@@ -57,11 +65,11 @@
 
   NSMutableSet *exportedSwiftViewModuleNames = [NSMutableSet new];
 
-  for (ViewModuleWrapper *swiftViewModule in [nativeModulesProxy.swiftInteropBridge getViewManagers]) {
-    Class wrappedViewModuleClass = [ViewModuleWrapper createViewModuleWrapperClassWithModule:swiftViewModule];
-    [extraModules addObject:[[wrappedViewModuleClass alloc] init]];
-    [exportedSwiftViewModuleNames addObject:swiftViewModule.name];
-  }
+//  for (ViewModuleWrapper *swiftViewModule in [nativeModulesProxy.swiftInteropBridge getViewManagers]) {
+//    Class wrappedViewModuleClass = [ViewModuleWrapper createViewModuleWrapperClassWithModule:swiftViewModule];
+//    [extraModules addObject:[[wrappedViewModuleClass alloc] init]];
+//    [exportedSwiftViewModuleNames addObject:swiftViewModule.name];
+//  }
   for (EXViewManager *viewManager in [moduleRegistry getAllViewManagers]) {
     if (![exportedSwiftViewModuleNames containsObject:viewManager.viewName]) {
       Class viewManagerAdapterClass = [EXViewManagerAdapterClassesRegistry createViewManagerAdapterClassForViewManager:viewManager];
@@ -75,7 +83,7 @@
   // subclass EXViewManagerAdapter, so RN expects to find EXViewManagerAdapter
   // exported.
   [extraModules addObject:[[EXViewManagerAdapter alloc] init]];
-  [extraModules addObject:[[ViewModuleWrapper alloc] initWithDummy:nil]];
+//  [extraModules addObject:[[ViewModuleWrapper alloc] initWithDummy:nil]];
 
   // It is possible that among internal modules there are some RCTBridgeModules --
   // let's add them to extraModules here.

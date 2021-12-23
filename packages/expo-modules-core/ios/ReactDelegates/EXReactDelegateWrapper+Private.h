@@ -1,8 +1,10 @@
 // Copyright 2018-present 650 Industries. All rights reserved.
 
-#import <ExpoModulesCore/Swift.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class ExpoReactDelegate;
 
 /**
  Internal `EXReactDelegateWrapper` interface for the designated initializer with `ExpoReactDelegate`.
